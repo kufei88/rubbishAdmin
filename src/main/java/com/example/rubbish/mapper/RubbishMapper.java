@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
+@SuppressWarnings("ALL")
 public interface RubbishMapper {
     /**
      *
