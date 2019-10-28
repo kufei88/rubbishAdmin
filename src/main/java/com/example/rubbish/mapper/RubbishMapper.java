@@ -5,12 +5,15 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
-@SuppressWarnings("ALL")
+/**
+ * @author 田易
+ */
+
 public interface RubbishMapper {
     /**
-     *
-            * @return
-            */
+     *查询所有信息
+     * @return
+     */
     @Select("select * from regioninfo")
     public List<Region> getRegionInfo();
 
@@ -19,22 +22,19 @@ public interface RubbishMapper {
      * @return
      */
     @Select("SELECT kitchenWastePassing,harmfulWastePassing,recyclableWastePassing,otherWastePassing from regioninfo WHERE time order by MONTH(time) asc")
-    public List getWastePassing();
+    public List<Region> getWastePassing();
 
     /**
      *金华各地区1-12月份的学习通过率
      * @return
      */
     @Select("SELECT learnPassing,region from regioninfo WHERE time order by MONTH(time) asc")
-    public List getLearnPassing();
-
-
-
+    public List<Region> getLearnPassing();
 
     /**
      * 金华各地区错误率
      * @return
      */
     @Select("SELECT errorPassing,region FROM regioninfo")
-    public List getErrorPassing();
+    public List<Region> getErrorPassing();
 }

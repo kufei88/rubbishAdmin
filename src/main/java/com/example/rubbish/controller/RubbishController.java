@@ -9,16 +9,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * @author 田易
+ */
 @RestController
 @RequestMapping("rubbish")
 public class RubbishController {
 
     @Autowired
-    private RubbishServices rS;
+    private RubbishServices rubbishServices;
 
+    /**
+     * 查询所有信息
+     * @return
+     */
     @PostMapping("/getRegionInfo")
     public List<Region> getRegionInfo(){
-        return rS.getRegionInfo();
+        return rubbishServices.getRegionInfo();
     }
 
     /**
@@ -27,7 +34,7 @@ public class RubbishController {
      */
     @PostMapping("/getWastePassing")
     public List getWastePassing(){
-        return rS.getWastePassing();
+        return rubbishServices.getWastePassing();
     }
 
     /**
@@ -36,7 +43,7 @@ public class RubbishController {
      */
     @PostMapping("/getLearnPassing")
     public List getLearnPassing(){
-        return rS.getLearnPassing();
+        return rubbishServices.getLearnPassing();
     }
 
     /**
@@ -45,6 +52,6 @@ public class RubbishController {
      */
     @PostMapping("/getErrorPassing")
     public List getErrorPassing(){
-        return rS.getErrorPassing();
+        return rubbishServices.getErrorPassing();
     }
 }

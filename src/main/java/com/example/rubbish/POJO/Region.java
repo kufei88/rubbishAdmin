@@ -1,14 +1,45 @@
 package com.example.rubbish.POJO;
 
+/**
+ * 地区，时间，通过率
+ * @author 田易
+ */
 public class Region {
+    /**
+     * id
+     */
     int id;
+    /**
+     * 地区
+     */
     String region;
+    /**
+     * 时间
+     */
     String time;
+    /**
+     * 厨余垃圾通过率
+     */
     int kitchenWastePassing;
+    /**
+     * 有害垃圾通过率
+     */
     int harmfulWastePassing;
+    /**
+     * 可回收垃圾通过率
+     */
     int recyclableWastePassing;
+    /**
+     * 其他垃圾通过率
+     */
     int otherWastePassing;
+    /**
+     * 错误率
+     */
     int errorPassing;
+    /**
+     * 学习通过率
+     */
     int learnPassing;
 
     public int getId() {
