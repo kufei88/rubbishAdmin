@@ -33,7 +33,7 @@ public class RubbishController {
      * @return
      */
     @PostMapping("/getWastePassing")
-    public List getWastePassing(){
+    public List<Region> getWastePassing(){
         return rubbishServices.getWastePassing();
     }
 
@@ -42,7 +42,7 @@ public class RubbishController {
      * @return
      */
     @PostMapping("/getLearnPassing")
-    public List getLearnPassing(){
+    public List<Region> getLearnPassing(){
         return rubbishServices.getLearnPassing();
     }
 
@@ -51,7 +51,7 @@ public class RubbishController {
      * @return
      */
     @PostMapping("/getErrorPassing")
-    public List getErrorPassing(){
+    public List<Region> getErrorPassing(){
         return rubbishServices.getErrorPassing();
     }
 }

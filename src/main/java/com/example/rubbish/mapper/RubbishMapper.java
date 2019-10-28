@@ -21,14 +21,14 @@ public interface RubbishMapper {
      * 四种垃圾每一种垃圾1-12月份的通过率
      * @return
      */
-    @Select("SELECT kitchenWastePassing,harmfulWastePassing,recyclableWastePassing,otherWastePassing from regioninfo WHERE time order by MONTH(time) asc")
+    @Select("SELECT kitchenWastePassing,harmfulWastePassing,recyclableWastePassing,otherWastePassing,time from regioninfo WHERE time order by MONTH(time) asc")
     public List<Region> getWastePassing();
 
     /**
      *金华各地区1-12月份的学习通过率
      * @return
      */
-    @Select("SELECT learnPassing,region from regioninfo WHERE time order by MONTH(time) asc")
+    @Select("SELECT learnPassing,region,time from regioninfo WHERE time order by MONTH(time) asc")
     public List<Region> getLearnPassing();
 
     /**

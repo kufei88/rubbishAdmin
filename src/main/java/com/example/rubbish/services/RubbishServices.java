@@ -27,7 +27,7 @@ public class RubbishServices {
      * 四种垃圾每一种垃圾1-12月份的通过率
      * @return
      */
-    public List getWastePassing(){
+    public List<Region> getWastePassing(){
         return rubbishMapper.getWastePassing();
     }
 
@@ -35,7 +35,7 @@ public class RubbishServices {
      * 金华各地区1-12月份的学习通过率
      * @return
      */
-    public List getLearnPassing(){
+    public List<Region> getLearnPassing(){
         return rubbishMapper.getLearnPassing();
     }
 
@@ -43,7 +43,7 @@ public class RubbishServices {
      * 金华各地区错误率
      * @return
      */
-    public List getErrorPassing(){
+    public List<Region> getErrorPassing(){
         return rubbishMapper.getErrorPassing();
     }
 }
