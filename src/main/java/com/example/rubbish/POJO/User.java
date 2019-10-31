@@ -22,26 +22,6 @@ public class User {
      */
     int age;
     /**
-     * 厨余垃圾分数
-     */
-    int kitchenWasteFraction;
-    /**
-     * 有害垃圾分数
-     */
-    int harmfulWasteFraction;
-    /**
-     * 可回收垃圾分数
-     */
-    int recyclableWasteFraction;
-    /**
-     * 其他垃圾分数
-     */
-    int otherWasteFraction;
-    /**
-     * 总评分
-     */
-    int scoreFraction;
-    /**
      * 性别
      */
     String sex;
@@ -90,8 +70,6 @@ public class User {
         this.workspace = workspace;
     }
 
-
-
     public int getId() {
         return id;
     }
@@ -124,45 +102,6 @@ public class User {
         this.age = age;
     }
 
-    public int getKitchenWasteFraction() {
-        return kitchenWasteFraction;
-    }
-
-    public void setKitchenWasteFraction(int kitchenWasteFraction) {
-        this.kitchenWasteFraction = kitchenWasteFraction;
-    }
-
-    public int getHarmfulWasteFraction() {
-        return harmfulWasteFraction;
-    }
-
-    public void setHarmfulWasteFraction(int harmfulWasteFraction) {
-        this.harmfulWasteFraction = harmfulWasteFraction;
-    }
-
-    public int getRecyclableWasteFraction() {
-        return recyclableWasteFraction;
-    }
-
-    public void setRecyclableWasteFraction(int recyclableWasteFraction) {
-        this.recyclableWasteFraction = recyclableWasteFraction;
-    }
-
-    public int getOtherWasteFraction() {
-        return otherWasteFraction;
-    }
-
-    public void setOtherWasteFraction(int otherWasteFraction) {
-        this.otherWasteFraction = otherWasteFraction;
-    }
-
-    public int getScoreFraction() {
-        return scoreFraction;
-    }
-
-    public void setScoreFraction(int scoreFraction) {
-        this.scoreFraction = scoreFraction;
-    }
 
 
 }

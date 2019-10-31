@@ -37,4 +37,6 @@ public interface RubbishMapper {
      */
     @Select("SELECT errorPassing,region FROM regioninfo")
     public List<Region> getErrorPassing();
+
+
 }
