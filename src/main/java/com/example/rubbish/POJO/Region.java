@@ -20,27 +20,27 @@ public class Region {
     /**
      * 厨余垃圾通过率
      */
-    int kitchenWastePassing;
+    float kitchenWastePassing;
     /**
      * 有害垃圾通过率
      */
-    int harmfulWastePassing;
+    float harmfulWastePassing;
     /**
      * 可回收垃圾通过率
      */
-    int recyclableWastePassing;
+    float recyclableWastePassing;
     /**
      * 其他垃圾通过率
      */
-    int otherWastePassing;
+    float otherWastePassing;
     /**
      * 错误率
      */
-    int errorPassing;
+    float errorPassing;
     /**
      * 学习通过率
      */
-    int learnPassing;
+    float learnPassing;
 
     public int getId() {
         return id;
@@ -66,51 +66,51 @@ public class Region {
         this.time = time;
     }
 
-    public int getKitchenWastePassing() {
+    public float getKitchenWastePassing() {
         return kitchenWastePassing;
     }
 
-    public void setKitchenWastePassing(int kitchenWastePassing) {
+    public void setKitchenWastePassing(float kitchenWastePassing) {
         this.kitchenWastePassing = kitchenWastePassing;
     }
 
-    public int getHarmfulWastePassing() {
+    public float getHarmfulWastePassing() {
         return harmfulWastePassing;
     }
 
-    public void setHarmfulWastePassing(int harmfulWastePassing) {
+    public void setHarmfulWastePassing(float harmfulWastePassing) {
         this.harmfulWastePassing = harmfulWastePassing;
     }
 
-    public int getRecyclableWastePassing() {
+    public float getRecyclableWastePassing() {
         return recyclableWastePassing;
     }
 
-    public void setRecyclableWastePassing(int recyclableWastePassing) {
+    public void setRecyclableWastePassing(float recyclableWastePassing) {
         this.recyclableWastePassing = recyclableWastePassing;
     }
 
-    public int getOtherWastePassing() {
+    public float getOtherWastePassing() {
         return otherWastePassing;
     }
 
-    public void setOtherWastePassing(int otherWastePassing) {
+    public void setOtherWastePassing(float otherWastePassing) {
         this.otherWastePassing = otherWastePassing;
     }
 
-    public int getErrorPassing() {
+    public float getErrorPassing() {
         return errorPassing;
     }
 
-    public void setErrorPassing(int errorPassing) {
+    public void setErrorPassing(float errorPassing) {
         this.errorPassing = errorPassing;
     }
 
-    public int getLearnPassing() {
+    public float getLearnPassing() {
         return learnPassing;
     }
 
-    public void setLearnPassing(int learnPassing) {
+    public void setLearnPassing(float learnPassing) {
         this.learnPassing = learnPassing;
     }
 

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -18,10 +19,10 @@ class RubbishAdminApplicationTests {
 
 	@Test
 	void test1(){
-		List list = rubbishController.getRegionInfo();
-		List list1 = rubbishController.getLearnPassing();
-		List list2 = rubbishController.getErrorPassing();
-		List list3 = rubbishController.getWastePassing();
+
+//		List<Long> list3 = rubbishController.getkitchenWastePassing();
+//		List list = rubbishController.getLearnPassing();
+		ArrayList list = rubbishController.getUserAll();
 		System.out.println("测试断点");
 	}
 
