@@ -38,6 +38,68 @@ public class User {
      */
     String workspace;
 
+    /**
+     * 厨余垃圾分数是否合格
+     */
+    String kitchenWasteQualified;
+    /**
+     * 有害垃圾分数是否合格
+     */
+    String harmfulWasteQualified;
+    /**
+     * 可回收垃圾分数是否合格
+     */
+    String recyclableWasteQualified;
+    /**
+     * 其他垃圾分数是否合格
+     */
+    String otherWasteQualified;
+    /**
+     * 总成绩分数是否合格
+     */
+    String totalQualified;
+    public String getKitchenWasteQualified() {
+        return kitchenWasteQualified;
+    }
+
+    public void setKitchenWasteQualified(String kitchenWasteQualified) {
+        this.kitchenWasteQualified = kitchenWasteQualified;
+    }
+
+    public String getHarmfulWasteQualified() {
+        return harmfulWasteQualified;
+    }
+
+    public void setHarmfulWasteQualified(String harmfulWasteQualified) {
+        this.harmfulWasteQualified = harmfulWasteQualified;
+    }
+
+    public String getRecyclableWasteQualified() {
+        return recyclableWasteQualified;
+    }
+
+    public void setRecyclableWasteQualified(String recyclableWasteQualified) {
+        this.recyclableWasteQualified = recyclableWasteQualified;
+    }
+
+    public String getOtherWasteQualified() {
+        return otherWasteQualified;
+    }
+
+    public void setOtherWasteQualified(String otherWasteQualified) {
+        this.otherWasteQualified = otherWasteQualified;
+    }
+
+    public String getTotalQualified() {
+        return totalQualified;
+    }
+
+    public void setTotalQualified(String totalQualified) {
+        this.totalQualified = totalQualified;
+    }
+
+
+
     public String getSex() {
         return sex;
     }

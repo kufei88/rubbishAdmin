@@ -41,6 +41,20 @@ public class Grade {
      * 更新时间
      */
     String updateTime;
+    /**
+     * 联系电话
+     */
+    String telephone;
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+
+
 
     public String getInsertTime() {
         return insertTime;

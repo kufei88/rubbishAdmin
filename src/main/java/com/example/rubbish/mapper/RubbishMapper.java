@@ -87,7 +87,7 @@ public interface RubbishMapper {
      * 掌握总人数
      * @return
      */
-    @Select("select  count(id) from userinfo where totalQualified = true and region = #{region}")
+    @Select("select  count(id) from userinfo where totalQualified = '合格' and region = #{region}")
     public int getAll(String region);
 
 
