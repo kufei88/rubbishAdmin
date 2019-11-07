@@ -21,6 +21,7 @@ class RubbishAdminApplicationTests {
 	@Test
 	void test1(){
 		JSONArray jsonArray = rubbishController.getKitchenWastePassing();
+		System.out.println(jsonArray);
 		System.out.println("测试断点");
 	}
 
