@@ -1,12 +1,13 @@
 package com.example.rubbish;
 
 import com.example.rubbish.controller.RubbishController;
+import net.sf.json.JSONArray;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @SpringBootTest
 class RubbishAdminApplicationTests {
@@ -19,10 +20,7 @@ class RubbishAdminApplicationTests {
 
 	@Test
 	void test1(){
-
-//		List<Long> list3 = rubbishController.getkitchenWastePassing();
-//		List list = rubbishController.getLearnPassing();
-		ArrayList list = rubbishController.getUserAll();
+		JSONArray jsonArray = rubbishController.getKitchenWastePassing();
 		System.out.println("测试断点");
 	}
 

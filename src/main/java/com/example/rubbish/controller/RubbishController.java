@@ -2,6 +2,7 @@ package com.example.rubbish.controller;
 
 import com.example.rubbish.POJO.Region;
 import com.example.rubbish.services.RubbishServices;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,8 +35,8 @@ public class RubbishController {
      * @return
      */
     @PostMapping("/getkitchenWastePassing")
-    public List<Long> getkitchenWastePassing(){
-        return rubbishServices.getkitchenWastePassing();
+    public JSONArray getKitchenWastePassing(){
+        return rubbishServices.getKitchenWastePassing();
     }
 
     /**
@@ -43,7 +44,7 @@ public class RubbishController {
      * @return
      */
     @PostMapping("/getHarmfulWastePassing")
-    public List<Long> getHarmfulWastePassing(){
+    public JSONArray getHarmfulWastePassing(){
         return rubbishServices.getHarmfulWastePassing();
     }
 
@@ -52,7 +53,7 @@ public class RubbishController {
      * @return
      */
     @PostMapping("/getRecyclableWastePassing")
-    public List<Long> getRecyclableWastePassing(){
+    public JSONArray getRecyclableWastePassing(){
         return rubbishServices.getRecyclableWastePassing();
     }
 
@@ -61,7 +62,7 @@ public class RubbishController {
      * @return
      */
     @PostMapping("/getOtherWastePassing")
-    public List<Long> getOtherWastePassing(){
+    public JSONArray getOtherWastePassing(){
         return rubbishServices.getOtherWastePassing();
     }
     /**

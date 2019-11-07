@@ -2,13 +2,13 @@ package com.example.rubbish.services;
 
 import com.example.rubbish.POJO.Region;
 import com.example.rubbish.mapper.RubbishMapper;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author 田易
@@ -17,6 +17,14 @@ import java.util.List;
 public class RubbishServices {
     @Autowired
     private RubbishMapper rubbishMapper;
+
+    /**
+     * 设置日期格式
+     */
+    private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");
+    private SimpleDateFormat df2 = new SimpleDateFormat("MM");
+    private int i;
+    private int date=Integer.parseInt(df2.format(new Date()));
 
     /**
      * 查询所有信息
@@ -30,42 +38,105 @@ public class RubbishServices {
      * 厨余垃圾1-12月份的通过率
      * @return
      */
-    public List<Long> getkitchenWastePassing(){
-        //设置日期格式
-        SimpleDateFormat df = new SimpleDateFormat("yyyy");
+    public JSONArray getKitchenWastePassing(){
+        List<Map<String,Object>> rows = new ArrayList<Map<String,Object>>();
+        JSONArray json = new JSONArray();
+        try {
+            String time=RubbishUtil.subMonth(df.format(new Date()),date-1);
+            for(i=1; i<=date; i++){
+                String string = rubbishMapper.getkitchenWastePassing(time);
+                if(string !=null){
+                    rows.add(RubbishUtil.map(i,string));
+                }else {
+                    rows.add(RubbishUtil.map(i,"0"));
+                }
+                time=RubbishUtil.subMonth(time);
+            }
+            json=JSONArray.fromObject(rows);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        return rubbishMapper.getkitchenWastePassing(df.format(new Date()));
+        return json;
     }
 
     /**
      * 有害垃圾1-12月份的通过率
      * @return
      */
-    public List<Long> getHarmfulWastePassing(){
-        //设置日期格式
-        SimpleDateFormat df = new SimpleDateFormat("yyyy");
+    public JSONArray getHarmfulWastePassing(){
 
-        return rubbishMapper.getHarmfulWastePassing(df.format(new Date()));
+        List<Map<String,Object>> rows = new ArrayList<Map<String,Object>>();
+        JSONArray json = new JSONArray();
+        try {
+            String time=RubbishUtil.subMonth(df.format(new Date()),date-1);
+            for(i=1; i<=date; i++){
+                String string = rubbishMapper.getHarmfulWastePassing(time);
+                if(string !=null){
+                    rows.add(RubbishUtil.map(i,string));
+                }else {
+                    rows.add(RubbishUtil.map(i,"0"));
+                }
+                time=RubbishUtil.subMonth(time);
+            }
+            json=JSONArray.fromObject(rows);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return json;
     }
     /**
      * 可回收垃圾1-12月份的通过率
      * @return
      */
-    public List<Long> getRecyclableWastePassing(){
-        //设置日期格式
-        SimpleDateFormat df = new SimpleDateFormat("yyyy");
+    public JSONArray getRecyclableWastePassing(){
 
-        return rubbishMapper.getRecyclableWastePassing(df.format(new Date()));
+        List<Map<String,Object>> rows = new ArrayList<Map<String,Object>>();
+        JSONArray json = new JSONArray();
+        try {
+            String time=RubbishUtil.subMonth(df.format(new Date()),date-1);
+            for(i=1; i<=date; i++){
+                String string = rubbishMapper.getRecyclableWastePassing(time);
+                if(string !=null){
+                    rows.add(RubbishUtil.map(i,string));
+                }else {
+                    rows.add(RubbishUtil.map(i,"0"));
+                }
+                time=RubbishUtil.subMonth(time);
+            }
+            json=JSONArray.fromObject(rows);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return json;
     }
     /**
      * 其他垃圾1-12月份的通过率
      * @return
      */
-    public List<Long> getOtherWastePassing(){
-        //设置日期格式
-        SimpleDateFormat df = new SimpleDateFormat("yyyy");
+    public JSONArray getOtherWastePassing(){
 
-        return rubbishMapper.getOtherWastePassing(df.format(new Date()));
+        List<Map<String,Object>> rows = new ArrayList<Map<String,Object>>();
+        JSONArray json = new JSONArray();
+        try {
+            String time=RubbishUtil.subMonth(df.format(new Date()),date-1);
+            for(i=1; i<=date; i++){
+                String string = rubbishMapper.getOtherWastePassing(time);
+                if(string !=null){
+                    rows.add(RubbishUtil.map(i,string));
+                }else {
+                    rows.add(RubbishUtil.map(i,"0"));
+                }
+                time=RubbishUtil.subMonth(time);
+            }
+            json=JSONArray.fromObject(rows);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return json;
     }
 
 
@@ -74,7 +145,6 @@ public class RubbishServices {
      * @return
      */
     public List<Region> getLearnPassing(){
-        SimpleDateFormat df = new SimpleDateFormat("yyyy");
         return rubbishMapper.getLearnPassing(df.format(new Date()));
     }
 
@@ -116,3 +186,46 @@ public class RubbishServices {
         return array;
     }
 }
+class RubbishUtil{
+    /**
+     * 时间月份加一个月
+     * @param date
+     * @return
+     * @throws ParseException
+     */
+    public static String subMonth(String date) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        Date dt = sdf.parse(date);
+        Calendar rightNow = Calendar.getInstance();
+        rightNow.setTime(dt);
+        rightNow.add(Calendar.MONTH, +1);
+        Date dt1 = rightNow.getTime();
+        String reStr = sdf.format(dt1);
+        return reStr;
+    }
+
+    /**
+     * 减n月
+     * @param date
+     * @return
+     * @throws ParseException
+     */
+    public static String subMonth(String date,int a) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        Date dt = sdf.parse(date);
+        Calendar rightNow = Calendar.getInstance();
+        rightNow.setTime(dt);
+        rightNow.add(Calendar.MONTH, -a);
+        Date dt1 = rightNow.getTime();
+        String reStr = sdf.format(dt1);
+        return reStr;
+    }
+
+    public static Map<String,Object> map(int a,String string){
+        Map<String,Object> row = new HashMap<String,Object>();
+        row.put(""+a+"", string);
+        return row;
+    }
+
+}
+

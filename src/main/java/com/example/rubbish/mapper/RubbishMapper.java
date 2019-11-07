@@ -30,29 +30,29 @@ public interface RubbishMapper {
      * @param date
      * @return
      */
-    @Select("SELECT kitchenWastePassing from regioninfo WHERE time like CONCAT(#{date},'%') order by MONTH(time) asc")
-    public List<Long> getkitchenWastePassing(@Param("date") String date);
+    @Select("SELECT AVG(kitchenWastePassing) from regioninfo WHERE time like CONCAT(#{date},'%')")
+    public String getkitchenWastePassing(@Param("date") String date);
     /**
      * 有害垃圾1-12月份的通过率
      * @param date
      * @return
      */
-    @Select("SELECT harmfulWastePassing from regioninfo WHERE time like CONCAT(#{date},'%') order by MONTH(time) asc")
-    public List<Long> getHarmfulWastePassing(@Param("date") String date);
+    @Select("SELECT AVG(harmfulWastePassing) from regioninfo WHERE time like CONCAT(#{date},'%')")
+    public String getHarmfulWastePassing(@Param("date") String date);
     /**
      * 可回收垃圾1-12月份的通过率
      * @param date
      * @return
      */
-    @Select("SELECT recyclableWastePassing from regioninfo WHERE time like CONCAT(#{date},'%') order by MONTH(time) asc")
-    public List<Long> getRecyclableWastePassing(@Param("date") String date);
+    @Select("SELECT AVG(recyclableWastePassing) from regioninfo WHERE time like CONCAT(#{date},'%')")
+    public String getRecyclableWastePassing(@Param("date") String date);
     /**
      * 其他垃圾1-12月份的通过率
      * @param date
      * @return
      */
-    @Select("SELECT otherWastePassing from regioninfo WHERE time like CONCAT(#{date},'%') order by MONTH(time) asc")
-    public List<Long> getOtherWastePassing(@Param("date") String date);
+    @Select("SELECT AVG(otherWastePassing) from regioninfo WHERE time like CONCAT(#{date},'%')")
+    public String getOtherWastePassing(@Param("date") String date);
 
     /**
      *金华各地区1-12月份的学习通过率
