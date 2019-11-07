@@ -23,7 +23,6 @@ public class RubbishServices {
      */
     private SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");
     private SimpleDateFormat df2 = new SimpleDateFormat("MM");
-    private int i;
     private int date=Integer.parseInt(df2.format(new Date()));
 
     /**
@@ -43,23 +42,22 @@ public class RubbishServices {
         JSONArray json = new JSONArray();
         String type = "日期";
         String type1 = "厨余垃圾";
+        int i;
         try {
             String time=RubbishUtil.subMonth(df.format(new Date()),date-1);
             for(i=1; i<=date; i++){
                 String string = rubbishMapper.getkitchenWastePassing(time);
                 if(string !=null){
-                    rows.add(RubbishUtil.map(type,i,type1,string));
+                    rows.add(RubbishUtil.map(type,i,type1,Float.valueOf(string)));
                 }else {
-                    rows.add(RubbishUtil.map(type,i,type1,"0"));
+                    rows.add(RubbishUtil.map(type,i,type1,0));
                 }
                 time=RubbishUtil.subMonth(time);
-
             }
             json=JSONArray.fromObject(rows);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
         return json;
     }
 
@@ -68,22 +66,21 @@ public class RubbishServices {
      * @return
      */
     public JSONArray getHarmfulWastePassing(){
-
         List<Map<String,Object>> rows = new ArrayList<>();
         JSONArray json = new JSONArray();
         String type = "日期";
         String type1 = "有害垃圾";
+        int i;
         try {
             String time=RubbishUtil.subMonth(df.format(new Date()),date-1);
             for(i=1; i<=date; i++){
                 String string = rubbishMapper.getHarmfulWastePassing(time);
                 if(string !=null){
-                    rows.add(RubbishUtil.map(type,i,type1,string));
+                    rows.add(RubbishUtil.map(type,i,type1,Float.valueOf(string)));
                 }else {
-                    rows.add(RubbishUtil.map(type,i,type1,"0"));
+                    rows.add(RubbishUtil.map(type,i,type1,0));
                 }
                 time=RubbishUtil.subMonth(time);
-
             }
             json=JSONArray.fromObject(rows);
         } catch (ParseException e) {
@@ -97,22 +94,21 @@ public class RubbishServices {
      * @return
      */
     public JSONArray getRecyclableWastePassing(){
-
         List<Map<String,Object>> rows = new ArrayList<>();
         JSONArray json = new JSONArray();
         String type = "日期";
         String type1 = "可回收垃圾";
+        int i;
         try {
             String time=RubbishUtil.subMonth(df.format(new Date()),date-1);
             for(i=1; i<=date; i++){
                 String string = rubbishMapper.getRecyclableWastePassing(time);
                 if(string !=null){
-                    rows.add(RubbishUtil.map(type,i,type1,string));
+                    rows.add(RubbishUtil.map(type,i,type1,Float.valueOf(string)));
                 }else {
-                    rows.add(RubbishUtil.map(type,i,type1,"0"));
+                    rows.add(RubbishUtil.map(type,i,type1,0));
                 }
                 time=RubbishUtil.subMonth(time);
-
             }
             json=JSONArray.fromObject(rows);
         } catch (ParseException e) {
@@ -130,14 +126,15 @@ public class RubbishServices {
         JSONArray json = new JSONArray();
         String type = "日期";
         String type1 = "其他垃圾";
+        int i;
         try {
             String time=RubbishUtil.subMonth(df.format(new Date()),date-1);
             for(i=1; i<=date; i++){
                 String string = rubbishMapper.getOtherWastePassing(time);
                 if(string !=null){
-                    rows.add(RubbishUtil.map(type,i,type1,string));
+                    rows.add(RubbishUtil.map(type,i,type1,Float.valueOf(string)));
                 }else {
-                    rows.add(RubbishUtil.map(type,i,type1,"0"));
+                    rows.add(RubbishUtil.map(type,i,type1,0));
                 }
                 time=RubbishUtil.subMonth(time);
 
@@ -216,7 +213,7 @@ class RubbishUtil{
     }
 
     /**
-     * 减n月
+     * 时间减n月
      * @param date
      * @return
      * @throws ParseException
@@ -232,8 +229,15 @@ class RubbishUtil{
         return reStr;
     }
 
-
-    public static Map<String,Object> map(String type,int date,String type1,String value){
+    /**
+     * map
+     * @param type
+     * @param date
+     * @param type1
+     * @param value
+     * @return
+     */
+    public static Map<String,Object> map(String type,int date,String type1,float value){
         Map<String,Object> row = new HashMap<>();
         row.put(""+type+"", date+"月");
         row.put(""+type1+"", value);
