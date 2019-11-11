@@ -65,12 +65,22 @@ public class RubbishController {
     public JSONArray getOtherWastePassing(){
         return rubbishServices.getOtherWastePassing();
     }
+
+    /**
+     * 年龄分布
+     * @return
+     */
+    @PostMapping("/getAgeCrowd")
+    public JSONArray getAgeCrowd(){
+        return rubbishServices.getAgeCrowd();
+    }
+
     /**
      * 金华各地区1-12月份的学习通过率
      * @return
      */
     @PostMapping("/getLearnPassing")
-    public List<Region> getLearnPassing(){
+    public JSONArray getLearnPassing(){
         return rubbishServices.getLearnPassing();
     }
 
@@ -84,20 +94,12 @@ public class RubbishController {
     }
 
     /**
-     * 总人数
+     * 地区总人数与掌握人数
      * @return
      */
     @PostMapping("/getUserAll")
-    public ArrayList getUserAll(){
+    public JSONArray getUserAll(){
         return rubbishServices.getUserAll();
     }
 
-    /**
-     * 掌握总人数
-     * @return
-     */
-    @PostMapping("/getAll")
-    public ArrayList getAll(){
-        return rubbishServices.getAll();
-    }
 }

@@ -48,9 +48,9 @@ public class RubbishServices {
             for(i=1; i<=date; i++){
                 String string = rubbishMapper.getkitchenWastePassing(time);
                 if(string !=null){
-                    rows.add(RubbishUtil.map(type,i,type1,Float.valueOf(string)));
+                    rows.add(RubbishUtil.map(type,String.valueOf(i)+"月",type1,Float.valueOf(string)));
                 }else {
-                    rows.add(RubbishUtil.map(type,i,type1,0));
+                    rows.add(RubbishUtil.map(type,String.valueOf(i)+"月",type1,0));
                 }
                 time=RubbishUtil.subMonth(time);
             }
@@ -76,9 +76,9 @@ public class RubbishServices {
             for(i=1; i<=date; i++){
                 String string = rubbishMapper.getHarmfulWastePassing(time);
                 if(string !=null){
-                    rows.add(RubbishUtil.map(type,i,type1,Float.valueOf(string)));
+                    rows.add(RubbishUtil.map(type,String.valueOf(i)+"月",type1,Float.valueOf(string)));
                 }else {
-                    rows.add(RubbishUtil.map(type,i,type1,0));
+                    rows.add(RubbishUtil.map(type,String.valueOf(i)+"月",type1,0));
                 }
                 time=RubbishUtil.subMonth(time);
             }
@@ -104,9 +104,9 @@ public class RubbishServices {
             for(i=1; i<=date; i++){
                 String string = rubbishMapper.getRecyclableWastePassing(time);
                 if(string !=null){
-                    rows.add(RubbishUtil.map(type,i,type1,Float.valueOf(string)));
+                    rows.add(RubbishUtil.map(type,String.valueOf(i)+"月",type1,Float.valueOf(string)));
                 }else {
-                    rows.add(RubbishUtil.map(type,i,type1,0));
+                    rows.add(RubbishUtil.map(type,String.valueOf(i)+"月",type1,0));
                 }
                 time=RubbishUtil.subMonth(time);
             }
@@ -132,9 +132,9 @@ public class RubbishServices {
             for(i=1; i<=date; i++){
                 String string = rubbishMapper.getOtherWastePassing(time);
                 if(string !=null){
-                    rows.add(RubbishUtil.map(type,i,type1,Float.valueOf(string)));
+                    rows.add(RubbishUtil.map(type,String.valueOf(i)+"月",type1,Float.valueOf(string)));
                 }else {
-                    rows.add(RubbishUtil.map(type,i,type1,0));
+                    rows.add(RubbishUtil.map(type,String.valueOf(i)+"月",type1,0));
                 }
                 time=RubbishUtil.subMonth(time);
 
@@ -152,51 +152,101 @@ public class RubbishServices {
      * 金华各地区1-12月份的学习通过率
      * @return
      */
-    public List<Region> getLearnPassing(){
-        return rubbishMapper.getLearnPassing(df.format(new Date()));
+    public JSONArray getLearnPassing(){
+        int i,j;
+        List<Region> list = rubbishMapper.getRegioninfo();
+        List<Map<String,Object>> rows = new ArrayList<>();
+        JSONArray json = new JSONArray();
+        String type = "日期";
+        for(i=0;i<list.size();i++){
+            try {
+                String time = RubbishUtil.subMonth(df.format(new Date()), date - 1);
+                for(j=1; j<=date; j++){
+                    String string = rubbishMapper.getLearnPassing(list.get(i).getRegion(),time);
+                    if(string !=null){
+                        rows.add(RubbishUtil.map(type,String.valueOf(j)+"月",list.get(i).getRegion(),Float.valueOf(string)));
+                    }else {
+                        rows.add(RubbishUtil.map(type,String.valueOf(j)+"月",list.get(i).getRegion(),0));
+                    }
+                    time=RubbishUtil.subMonth(time);
+                }
+                json=JSONArray.fromObject(rows);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return json;
     }
+
+    /**
+     * 年龄分布
+     * @return
+     */
+    public JSONArray getAgeCrowd(){
+        int sum = rubbishMapper.getUserSum();
+        float children = rubbishMapper.getChildrenSum()/sum;
+        float student = rubbishMapper.getStudentSum()/sum;
+        float youth = rubbishMapper.getYouthSum()/sum;
+        float middle = rubbishMapper.getMiddleSum()/sum;
+        float old = rubbishMapper.getOldSum()/sum;
+        List<Map<String,Object>> rows = new ArrayList<>();
+        Map<String, Object> row = new HashMap<>();
+        row.put("学前儿童", children);
+        row.put("在校学生", student);
+        row.put("青年群体",youth);
+        row.put("中年群体",middle);
+        row.put("老年群体",old);
+        rows.add(row);
+        JSONArray json =JSONArray.fromObject(rows);
+        return json;
+    }
+
 
     /**
      * 金华各地区错误率
      * @return
      */
-    public List<Region> getErrorPassing(){
-        return rubbishMapper.getErrorPassing();
+    public JSONArray getErrorPassing(){
+        String type="地区";
+        String type1 = "错误率";
+        List<Map<String,Object>> rows = new ArrayList<>();
+        JSONArray json = new JSONArray();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        try {
+            for(Region region : rubbishMapper.getRrgion()){
+                String erro = rubbishMapper.getErrorPassing(region.getRegion(),sdf.format(new Date()));
+                rows.add(RubbishUtil.map(type,region.getRegion(),type1,Float.valueOf(erro)));
+            }
+            json=JSONArray.fromObject(rows);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return json;
     }
 
     /**
-     * 总人数
+     * 地区总人数与掌握人数
      * @return
      */
-    public ArrayList getUserAll(){
-        ArrayList array = new ArrayList();
+    public JSONArray getUserAll(){
+        String type = "地区";
+        String type1 = "总目标人数";
+        String type2 = "掌握目标人数";
+        List<Map<String,Object>> rows = new ArrayList<>();
         for (Region region : rubbishMapper.getRrgion()){
-            ArrayList arrayList = new ArrayList();
-            arrayList.add(region.getRegion());
-            arrayList.add(rubbishMapper.getUserAll(region.getRegion())/10000);
-            array.add(arrayList);
+           float value =  rubbishMapper.getUserAll(region.getRegion())/10000;
+           float value1 = rubbishMapper.getAll(region.getRegion())/10000;
+           rows.add(RubbishUtil.map(type,region.getRegion(),type1,value,type2,value1));
         }
-        return array;
-    }
-
-    /**
-     * 掌握人数
-     * @return
-     */
-    public ArrayList getAll(){
-        ArrayList array = new ArrayList();
-        for (Region region : rubbishMapper.getRrgion()){
-            ArrayList arrayList = new ArrayList();
-            arrayList.add(region.getRegion());
-            arrayList.add(rubbishMapper.getAll(region.getRegion())/10000);
-            array.add(arrayList);
-        }
-        return array;
+        JSONArray json = JSONArray.fromObject(rows);
+        return json;
     }
 }
-class RubbishUtil{
+class RubbishUtil {
     /**
      * 时间月份加一个月
+     *
      * @param date
      * @return
      * @throws ParseException
@@ -214,11 +264,12 @@ class RubbishUtil{
 
     /**
      * 时间减n月
+     *
      * @param date
      * @return
      * @throws ParseException
      */
-    public static String subMonth(String date,int a) throws ParseException {
+    public static String subMonth(String date, int a) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
         Date dt = sdf.parse(date);
         Calendar rightNow = Calendar.getInstance();
@@ -232,17 +283,34 @@ class RubbishUtil{
     /**
      * map
      * @param type
-     * @param date
+     * @param string
      * @param type1
-     * @param value
+     * @param value1
      * @return
      */
-    public static Map<String,Object> map(String type,int date,String type1,float value){
-        Map<String,Object> row = new HashMap<>();
-        row.put(""+type+"", date+"月");
-        row.put(""+type1+"", value);
+    public static Map<String, Object> map(String type, String string, String type1, float value1) {
+        Map<String, Object> row = new HashMap<>();
+        row.put("" + type + "", string);
+        row.put("" + type1 + "", value1);
         return row;
     }
 
+    /**
+     * map
+     * @param type
+     * @param string
+     * @param type1
+     * @param value1
+     * @param type2
+     * @param value2
+     * @return
+     */
+    public static Map<String, Object> map(String type, String string, String type1, float value1, String type2, float value2) {
+        Map<String, Object> row = new HashMap<>();
+        row.put("" + type + "", string);
+        row.put("" + type1 + "", value1);
+        row.put("" + type2 + "", value2);
+        return row;
+    }
 }
 

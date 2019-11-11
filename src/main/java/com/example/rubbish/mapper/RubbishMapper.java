@@ -55,19 +55,27 @@ public interface RubbishMapper {
     public String getOtherWastePassing(@Param("date") String date);
 
     /**
-     *金华各地区1-12月份的学习通过率
-     * @param date
+     * 得到地区
      * @return
      */
-    @Select("SELECT learnPassing,region,MONTH(time) as time from regioninfo WHERE time like CONCAT(#{date},'%') order by MONTH(time) asc")
-    public List<Region> getLearnPassing(@Param("date") String date);
+    @Select("SELECT DISTINCT region from regioninfo")
+    public List<Region> getRegioninfo();
+
+
+    /**
+     *金华各地区1-12月份的学习通过率
+     * @param region
+     * @return
+     */
+    @Select("SELECT AVG(learnPassing) from regioninfo WHERE region = #{region} and time like CONCAT(#{date},'%')")
+    public String getLearnPassing(@Param("region") String region,@Param("date") String date);
 
     /**
      * 金华各地区错误率
      * @return
      */
-    @Select("SELECT errorPassing,region FROM regioninfo")
-    public List<Region> getErrorPassing();
+    @Select("SELECT AVG(errorPassing) from regioninfo WHERE region = #{region} and time like CONCAT(#{date},'%')")
+    public String getErrorPassing(@Param("region") String region,@Param("date") String date);
 
     /**
      * 得到地区
@@ -77,18 +85,61 @@ public interface RubbishMapper {
     public List<Region> getRrgion();
 
     /**
-     * 总人数
+     * 指定地区总人数
      * @return
      */
     @Select("select  count(id) from userinfo where region = #{region} ")
     public int getUserAll(String region);
 
     /**
-     * 掌握总人数
+     * 指定地区掌握总人数
      * @return
      */
     @Select("select  count(id) from userinfo where totalQualified = '合格' and region = #{region}")
     public int getAll(String region);
+
+    /**
+     * 注册总人数
+     * @return
+     */
+    @Select("select count(id) from userinfo")
+    public int getUserSum();
+
+    /**
+     * 注册的学生总人数
+     * @return
+     */
+    @Select("select count(id) from userinfo where workspace = '学生'")
+    public int getStudentSum();
+
+    /**
+     * 注册的学前儿童
+     * @return
+     */
+    @Select("select count(id) from userinfo where age <= 6")
+    public int getChildrenSum();
+
+    /**
+     * 注册的青年
+     * @return
+     */
+    @Select("select count(id) from userinfo where age between 15 and 44")
+    public int getYouthSum();
+
+    /**
+     * 注册的中年
+     * @return
+     */
+    @Select("select count(id) from userinfo where age between 45 and 59")
+    public int getMiddleSum();
+
+    /**
+     * 注册的老年
+     * @return
+     */
+    @Select("select count(id) from userinfo where age >=65")
+    public int getOldSum();
+
 
 
 }
