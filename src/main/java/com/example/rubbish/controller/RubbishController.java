@@ -94,6 +94,14 @@ public class RubbishController {
     }
 
     /**
+     * 各地区覆盖率
+     * @return
+     */
+    @PostMapping("/getCoverage")
+    public JSONArray getCoverage(){
+        return rubbishServices.getCoverage();
+    }
+    /**
      * 地区总人数与掌握人数
      * @return
      */

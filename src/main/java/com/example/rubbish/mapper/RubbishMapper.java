@@ -71,11 +71,22 @@ public interface RubbishMapper {
     public String getLearnPassing(@Param("region") String region,@Param("date") String date);
 
     /**
-     * 金华各地区错误率
+     * 各地区错误率
+     * @param region
+     * @param date
      * @return
      */
     @Select("SELECT AVG(errorPassing) from regioninfo WHERE region = #{region} and time like CONCAT(#{date},'%')")
     public Float getErrorPassing(@Param("region") String region,@Param("date") String date);
+
+    /**
+     * 各地区覆盖率
+     * @param region
+     * @param date
+     * @return
+     */
+    @Select("SELECT AVG(coverage) from regioninfo WHERE region = #{region} and time like CONCAT(#{date},'%')")
+    public Float getCoverage(@Param("region") String region,@Param("date") String date);
 
     /**
      * 得到地区

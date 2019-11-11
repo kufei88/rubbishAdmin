@@ -238,6 +238,28 @@ public class RubbishServices {
     }
 
     /**
+     * 各地区覆盖率
+     * @return
+     */
+    public JSONArray getCoverage(){
+        String type="地区";
+        String type1 = "覆盖率";
+        List<Map<String,Object>> rows = new ArrayList<>();
+        JSONArray json = new JSONArray();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+        try {
+            for(Region region : rubbishMapper.getRegionAll()){
+                Float coverage = rubbishMapper.getCoverage(region.getRegion(),sdf.format(new Date()));
+                rows.add(RubbishUtil.map(type,region.getRegion(),type1,coverage));
+            }
+            json=JSONArray.fromObject(rows);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return json;
+    }
+    /**
      * 地区总人数与掌握人数
      * @return
      */
