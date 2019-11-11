@@ -59,7 +59,7 @@ public interface RubbishMapper {
      * @return
      */
     @Select("SELECT DISTINCT region from regioninfo")
-    public List<Region> getRegioninfo();
+    public List<Region> getRegionAll();
 
 
     /**
@@ -75,7 +75,7 @@ public interface RubbishMapper {
      * @return
      */
     @Select("SELECT AVG(errorPassing) from regioninfo WHERE region = #{region} and time like CONCAT(#{date},'%')")
-    public String getErrorPassing(@Param("region") String region,@Param("date") String date);
+    public Float getErrorPassing(@Param("region") String region,@Param("date") String date);
 
     /**
      * 得到地区

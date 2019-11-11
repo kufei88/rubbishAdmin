@@ -154,7 +154,7 @@ public class RubbishServices {
      */
     public JSONArray getLearnPassing(){
         int i,j;
-        List<Region> list = rubbishMapper.getRegioninfo();
+        List<Region> list = rubbishMapper.getRegionAll();
         List<Map<String,Object>> rows = new ArrayList<>();
         JSONArray json = new JSONArray();
         String type = "日期";
@@ -225,9 +225,9 @@ public class RubbishServices {
         JSONArray json = new JSONArray();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
         try {
-            for(Region region : rubbishMapper.getRrgion()){
-                String erro = rubbishMapper.getErrorPassing(region.getRegion(),sdf.format(new Date()));
-                rows.add(RubbishUtil.map(type,region.getRegion(),type1,Float.valueOf(erro)));
+            for(Region region : rubbishMapper.getRegionAll()){
+                Float erro = rubbishMapper.getErrorPassing(region.getRegion(),sdf.format(new Date()));
+                rows.add(RubbishUtil.map(type,region.getRegion(),type1,erro));
             }
             json=JSONArray.fromObject(rows);
         } catch (Exception e) {
