@@ -20,7 +20,7 @@ class RubbishAdminApplicationTests {
 
 	@Test
 	void test1(){
-		JSONArray jsonArray=rubbishController.getErrorPassing();
+		JSONArray jsonArray=rubbishController.getLearnPassing();
 		System.out.println("测试断点");
 	}
 

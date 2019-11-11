@@ -67,7 +67,7 @@ public interface RubbishMapper {
      * @param region
      * @return
      */
-    @Select("SELECT AVG(learnPassing) from regioninfo WHERE region = #{region} and time like CONCAT(#{date},'%')")
+    @Select("SELECT learnPassing from regioninfo WHERE region = #{region} and time like CONCAT(#{date},'%')")
     public String getLearnPassing(@Param("region") String region,@Param("date") String date);
 
     /**

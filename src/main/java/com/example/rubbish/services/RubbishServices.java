@@ -158,23 +158,28 @@ public class RubbishServices {
         List<Map<String,Object>> rows = new ArrayList<>();
         JSONArray json = new JSONArray();
         String type = "日期";
-        for(i=0;i<list.size();i++){
-            try {
-                String time = RubbishUtil.subMonth(df.format(new Date()), date - 1);
-                for(j=1; j<=date; j++){
-                    String string = rubbishMapper.getLearnPassing(list.get(i).getRegion(),time);
-                    if(string !=null){
-                        rows.add(RubbishUtil.map(type,String.valueOf(j)+"月",list.get(i).getRegion(),Float.valueOf(string)));
+        try {
+            String time = RubbishUtil.subMonth(df.format(new Date()), date - 1);
+            for(i=1;i<=date;i++){
+                Map<String,Object> row = new HashMap<>();;
+                for (j=0;j<list.size();j++){
+                    String string = rubbishMapper.getLearnPassing(list.get(j).getRegion(),time);
+                    if(string != null){
+                        row.put(list.get(j).getRegion(),Float.valueOf(string));
                     }else {
-                        rows.add(RubbishUtil.map(type,String.valueOf(j)+"月",list.get(i).getRegion(),0));
+                        row.put(list.get(j).getRegion(),0);
                     }
-                    time=RubbishUtil.subMonth(time);
                 }
-                json=JSONArray.fromObject(rows);
-            } catch (ParseException e) {
-                e.printStackTrace();
+                row.put(type,String.valueOf(i)+"月");
+                rows.add(row);
+                time=RubbishUtil.subMonth(time);
             }
+            json=JSONArray.fromObject(rows);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+
+
         return json;
     }
 
@@ -328,7 +333,17 @@ class RubbishUtil {
         row.put("" + type1 + "", value1);
         return row;
     }
-
+    /**
+     * map
+     * @param type
+     * @param string
+     * @return
+     */
+    public static Map<String, Object> map(String type, String string) {
+        Map<String, Object> row = new HashMap<>();
+        row.put("" + type + "", string);
+        return row;
+    }
     /**
      * map
      * @param type
