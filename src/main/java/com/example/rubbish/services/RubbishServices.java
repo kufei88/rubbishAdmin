@@ -190,13 +190,25 @@ public class RubbishServices {
         float middle = rubbishMapper.getMiddleSum()/sum;
         float old = rubbishMapper.getOldSum()/sum;
         List<Map<String,Object>> rows = new ArrayList<>();
-        Map<String, Object> row = new HashMap<>();
-        row.put("学前儿童", children);
-        row.put("在校学生", student);
+        String type = "type";
+        String type1 = "分布";
+        List<String> list = new ArrayList<>();
+        list.add("学前儿童");
+        list.add("在校学生");
+        list.add("青年群体");
+        list.add("中年群体");
+        list.add("老年群体");
+        Map<String, Float> row = new HashMap<>();
+        row.put("学前儿童",children);
+        row.put("在校学生",student);
         row.put("青年群体",youth);
         row.put("中年群体",middle);
         row.put("老年群体",old);
-        rows.add(row);
+        int i;
+        for(i=0;i<row.size();i++){
+            rows.add(RubbishUtil.map(type,list.get(i),type1,row.get(list.get(i))));
+        }
+
         JSONArray json =JSONArray.fromObject(rows);
         return json;
     }

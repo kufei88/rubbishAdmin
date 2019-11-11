@@ -89,7 +89,7 @@ public class RubbishController {
      * @return
      */
     @PostMapping("/getErrorPassing")
-    public List<Region> getErrorPassing(){
+    public JSONArray getErrorPassing(){
         return rubbishServices.getErrorPassing();
     }
 
