@@ -39,6 +39,11 @@ public class User {
     String workspace;
 
     /**
+     * 联系电话
+     */
+    String telephone;
+
+    /**
      * 厨余垃圾分数是否合格
      */
     String kitchenWasteQualified;
@@ -58,6 +63,13 @@ public class User {
      * 总成绩分数是否合格
      */
     String totalQualified;
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
     public String getKitchenWasteQualified() {
         return kitchenWasteQualified;
     }
